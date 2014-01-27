@@ -1,0 +1,7 @@
+# System-level
+.DS_Store
+
+# App stuff
+app/build/
+node_modules/
+bower_components/

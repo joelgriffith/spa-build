@@ -1,0 +1,26 @@
+{
+    "bitwise": true,
+    "browser": true,
+    "camelcase": true,
+    "curly": false,
+    "devel": true,
+    "eqeqeq": true,
+    "es3": true,
+    "freeze": true,
+    "immed": true,
+    "jquery": true,
+    "maxdepth": 2,
+    "newcap": true,
+    "noarg": true,
+    "node": true,
+    "notypeof": true,
+    "quotmark": "single",
+    "strict": true,
+    "trailing": true,
+    "undef": true,
+    "unused": true,
+    "globals": {
+        "angular": false,
+        "backbone": false
+    }
+}
