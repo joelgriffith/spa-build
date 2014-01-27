@@ -1,5 +1,3 @@
-var fs = require('fs');
-
 /**
  * Gruntfile.js
  */
@@ -9,7 +7,6 @@ module.exports = function(grunt) {
 
     // Configure the app path
     var base = 'app',
-        build = 'build',
         js = base + '/js/*.js',
         jsIndex = base + '/js/index.js',
         scss = base + '/scss/index.scss';
@@ -79,10 +76,7 @@ module.exports = function(grunt) {
                     mainConfigFile: jsIndex,
                     include: 'index',
                     optimize: 'none',
-                    out: function(txt) {
-                        fs.writeFile('./build/dev/js/index.js', txt);
-                        fs.writeFile('./build/dist/js/index.js', txt);
-                    }
+                    out: 'build/dev/js/index.js'
                 }
             }
         },
@@ -91,24 +85,14 @@ module.exports = function(grunt) {
         uglify: {
             dist: {
                 files: {
-                    'build/dist/js/index.min.js': ['build/dist/js/index.js']
+                    'build/dist/js/index.js': ['build/dev/js/index.js'],
+                    'build/dist/js/lib/requirejs/require.min.js': [base + '/js/lib/requirejs/require.js']
                 }
-            }
-        },
-
-        // Copy
-        copy: {
+            },
             dev: {
-                src: base + '/js/lib/requirejs/require.js',
-                dest: build + '/dev/js/lib/requirejs/require.js'
-            }
-        },
-
-        // Concat
-        concat: {
-            dist: {
-                src: [base + '/js/lib/requirejs/require.js', build + '/dist/js/index.js'],
-                dest: build + '/dist/js/index.js'
+                files: {
+                    'build/dev/js/lib/requirejs/require.min.js': [base + '/js/lib/requirejs/require.js']
+                }
             }
         },
 
@@ -121,12 +105,12 @@ module.exports = function(grunt) {
             },
             dist: {
                 files: {
-                    'build/dist/index.html': [ base + '/index.html' ]
+                    'build/dist/index.html': [ base + '/template.html' ]
                 }
             },
             dev: {
                 files: {
-                    'build/dev/index.html': [ base + '/index.html' ]
+                    'build/dev/index.html': [ base + '/template.html' ]
                 }
             }
         },
@@ -151,6 +135,6 @@ module.exports = function(grunt) {
     
     // Command line tasks
     grunt.registerTask('default', ['build']);
-    grunt.registerTask('build', ['jshint', 'jsonlint', 'sass', 'requirejs', 'processhtml', 'copy', 'concat', 'uglify']);
+    grunt.registerTask('build', ['jshint', 'jsonlint', 'sass', 'requirejs', 'processhtml', 'uglify']);
     grunt.registerTask('serve', ['build', 'connect:livereload', 'watch']);
 };

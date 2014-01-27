@@ -16,6 +16,6 @@ require.config({
 /*
  * App Execution
  */
-define(['jquery'], function($) {
-	alert($());
+define(function() {
+	alert('It\'s working');
 });
