@@ -6,7 +6,11 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>App</title>
+        <title>
+            <!-- build:template -->
+            <%= name %>
+            <!-- /build -->
+        </title>
         <meta name="description" content="">
         
         <!-- This assumes your project will be responsive -->
@@ -17,8 +21,8 @@
     </head>
     
     <body>
-        <!-- build:js:dist index.min.js -->
-        <script src="js/lib/requirejs/requirejs" data-main="js/index.js"></script>
+        <!-- build:js:dist js/index.min.js -->
+        <script src="js/lib/requirejs/requirejs.js" data-main="js/index.js"></script>
         <!-- /build -->
     </body>
 </html>

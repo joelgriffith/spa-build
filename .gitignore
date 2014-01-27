@@ -7,5 +7,4 @@ app/js/lib/
 .npm-debug.log
 
 # Builds
-app/dist/
-app/dev/
+build/

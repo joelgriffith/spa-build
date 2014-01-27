@@ -2,18 +2,20 @@
  *	Require Config
  */
 require.config({
-	baseUrl: '/',
+	baseUrl: './',
 	paths: {
-
+		'jquery': 'lib/jquery/jquery.min'
 	},
 	shim: {
-
+		'jquery': {
+			exports: '$'
+		}
 	}
 });
 
 /*
  * App Execution
  */
-require([], function() {
-	
+define(['jquery'], function($) {
+	console.log($());
 });

@@ -13,7 +13,6 @@
     "noarg": true,
     "node": true,
     "notypeof": true,
-    "strict": true,
     "trailing": true,
     "undef": true,
     "unused": true,
