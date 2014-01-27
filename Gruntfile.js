@@ -100,7 +100,7 @@ module.exports = function(grunt) {
         copy: {
             dev: {
                 src: base + '/js/lib/requirejs/require.js',
-                dest: build + '/dev/js/lib/require.js'
+                dest: build + '/dev/js/lib/requirejs/require.js'
             }
         },
 

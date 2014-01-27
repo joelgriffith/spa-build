@@ -17,5 +17,5 @@ require.config({
  * App Execution
  */
 define(['jquery'], function($) {
-	console.log($());
+	alert($());
 });
