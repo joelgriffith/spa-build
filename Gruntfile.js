@@ -3,11 +3,13 @@
  */
 module.exports = function(grunt) {
 
+    'use strict';
+
     // Configure the app path
-    var base = 'app'
-        , js = base + '/js/*.js'
-        , jsindex = base + '/js/index.js'
-        , scss = base + '/scss/index.scss';
+    var base = 'app',
+        js = base + '/js/*.js',
+        jsIndex = base + '/js/index.js',
+        scss = base + '/scss/index.scss';
 
     // Load dev dependencies
     require('load-grunt-tasks')(grunt);
@@ -71,18 +73,32 @@ module.exports = function(grunt) {
         requirejs: {
             compile: {
                 options: {
-                    baseUrl: app,
+                    baseUrl: './',
                     mainConfigFile: jsIndex,
-                    name: pkg.name,
+                    name: 'app/js/index.js',
                     out: 'app/dev/js/index.js'
                 }
             }
         },
 
-        // Uglify
+        // UglifyJS
         uglify: {
             my_target: {
                 files: {
+                }
+            }
+        },
+
+        // Process HTML
+        processhtml: {
+            dist: {
+                files: {
+                    'app/dist/index.html': [ base + '/index.html' ]
+                }
+            },
+            dev: {
+                files: {
+                    'app/dev/index.html': [ base + '/index.html' ]
                 }
             }
         },
@@ -107,6 +123,6 @@ module.exports = function(grunt) {
     
     // Command line tasks
     grunt.registerTask('default', ['build']);
-    grunt.registerTask('build', ['jshint', 'jsonlint', 'sass', 'requirejs', 'uglify']);
+    grunt.registerTask('build', ['jshint', 'jsonlint', 'sass', 'requirejs', 'processhtml']);
     grunt.registerTask('serve', ['build', 'connect:livereload', 'watch']);
 };

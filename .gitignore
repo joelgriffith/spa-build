@@ -4,6 +4,7 @@
 # App stuff
 node_modules/
 app/js/lib/
+.npm-debug.log
 
 # Builds
 app/dist/
