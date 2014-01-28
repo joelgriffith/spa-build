@@ -1,8 +1,7 @@
 {
   "name": "SinglePageApplication",
   "version": "0.0.1",
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "gulp": "~3.5.0",
     "gulp-util": "~2.2.13",
@@ -20,7 +19,9 @@
     "gulp-jshint": "~1.3.4",
     "gulp-imagemin": "~0.1.4",
     "gulp-cache": "~0.1.1",
-    "gulp-connect": "~0.1.3"
+    "gulp-connect": "~0.1.3",
+    "connect-livereload": "~0.3.2",
+    "express": "~3.4.8"
   },
   "scripts": {
     "install": "gulp"

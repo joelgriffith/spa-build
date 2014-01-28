@@ -32,6 +32,13 @@ var base = './src',
 	assets = base + '/assets';
 
 /*
+ *	Server Ports and Such
+ */
+var EXPRESS_PORT = 8080,
+	EXPRESS_ROOT = dev,
+	LIVERELOAD_PORT = 35729;
+
+/*
  * 	Task Associations
  */
 gulp.task('default', ['clean'], function() {
@@ -147,20 +154,23 @@ gulp.task('clean', function() {
 /*
  *	Connect
  */
-gulp.task('connect', connect({
-	root: dev,
-	port: 8080,
-	open: {
-		file: 'index.html',
-		browser: 'chrome'
-	}
-}));
+gulp.task('connect', function() { 
+	var express = require('express');
+	var app = express();
+	app.use(require('connect-livereload')());
+	app.use(express.static(EXPRESS_ROOT));
+	app.listen(EXPRESS_PORT);
+});
 
 /*
  *	Watch Task Runner
  */
 gulp.task('watch', function() {
-	// Listen on port 35729
+	
+	// Start the Dev Server
+	gulp.start('connect');
+
+	// Start LiveReload
 	server.listen(35729, function (err) {
 		if (err) {
 			return console.log(err)
@@ -189,5 +199,4 @@ gulp.task('watch', function() {
 			gulp.start('html');
 		});
 	});
-	gulp.start('connect');
 });

@@ -2,10 +2,8 @@
 .DS_Store
 
 # App stuff
+.sass-cache
+npm-debug.log
 node_modules/
 bower_modules/
-npm-debug.log
-.sass-cache
-
-# Builds
 build/
