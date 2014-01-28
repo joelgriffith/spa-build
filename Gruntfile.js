@@ -5,16 +5,17 @@ module.exports = function(grunt) {
 
     'use strict';
 
-    // Configure the app path
-    var base = 'app',
-        js = base + '/js/*.js',
-        jsIndex = base + '/js/index.js',
-        scss = base + '/scss/index.scss';
+    // Path abstractions
+    var baseDir = 'app',
+        devDir = 'build/dev',
+        distDir = 'build/dist',
+        scss = baseDir + '/scss/*.scss',
+        js = baseDir + '/js/*.js',
+        jsIndex = baseDir + '/js/index.js',
+        scssIndex = baseDir + '/scss/index.scss';
 
     // Load dev dependencies
     require('load-grunt-tasks')(grunt);
-
-    // Time how long tasks take for build time optimizations
     require('time-grunt')(grunt);
     grunt.initConfig({
 
@@ -31,7 +32,7 @@ module.exports = function(grunt) {
             livereload: {
                 options: {
                     open: true,
-                    base: [ base ]
+                    base: [ baseDir ]
                 }
             }
         },
@@ -55,20 +56,6 @@ module.exports = function(grunt) {
             }
         },
 
-        // Sass Compiling
-        sass: {
-            dist: {
-                files: {
-                    'build/dist/css/index.css': scss
-                }
-            },
-            dev: {
-                files: {
-                    'build/dev/css/index.css': scss
-                }
-            }
-        },
-
         // RequireJS
         requirejs: {
             compile: {
@@ -76,7 +63,7 @@ module.exports = function(grunt) {
                     mainConfigFile: jsIndex,
                     include: 'index',
                     optimize: 'none',
-                    out: 'build/dev/js/index.js'
+                    out: devDir + '/js/index.js'
                 }
             }
         },
@@ -85,16 +72,29 @@ module.exports = function(grunt) {
         uglify: {
             dist: {
                 files: {
-                    'build/dist/js/index.js': ['build/dev/js/index.js']
+                    'build/dist/js/index.js': [ distDir + '/js/index.js' ]
                 }
             }
         },
 
-        // CSS Minification
-        cssmin: {
+        // Sass compiling
+        sass: {
             dist: {
+                options: {
+                    style: 'compressed'
+                },
                 files: {
-                    'build/dist/css/index.css': ['build/dist/css/index.css']
+                    'build/dist/css/index.css': scssIndex
+                }
+            },
+            dev: {
+                options: {
+                    style: 'nested',
+                    sourcemap: true,
+                    compass: true
+                },
+                files: {
+                    'build/dev/css/index.css': scssIndex
                 }
             }
         },
@@ -108,12 +108,12 @@ module.exports = function(grunt) {
             },
             dist: {
                 files: {
-                    'build/dist/index.html': [ base + '/template.html' ]
+                    'build/dist/index.html': [ baseDir + '/template.html' ]
                 }
             },
             dev: {
                 files: {
-                    'build/dev/index.html': [ base + '/template.html' ]
+                    'build/dev/index.html': [ baseDir + '/template.html' ]
                 }
             }
         },
@@ -128,7 +128,7 @@ module.exports = function(grunt) {
                     '<%= jshint.all %>',
                     '<%= jsonlint.pkg.src %>',
                     '<%= jsonlint.bower.src %>',
-                    base + '/css/**/*.css',
+                    baseDir + '/css/**/*.css',
                     '**/*.html'
                 ]
             }
@@ -137,6 +137,6 @@ module.exports = function(grunt) {
     
     // Command line tasks
     grunt.registerTask('default', ['build']);
-    grunt.registerTask('build', ['jshint', 'jsonlint', 'requirejs', 'processhtml', 'uglify', 'sass', 'cssmin']);
+    grunt.registerTask('build', ['jshint', 'jsonlint', 'requirejs', 'processhtml', 'uglify', 'sass']);
     grunt.registerTask('serve', ['build', 'connect:livereload', 'watch']);
 };

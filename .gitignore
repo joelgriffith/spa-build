@@ -5,6 +5,7 @@
 node_modules/
 app/js/lib/
 .npm-debug.log
+.sass-cache
 
 # Builds
 build/
