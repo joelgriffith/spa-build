@@ -2,7 +2,6 @@
 	"name": "temp",
 	"version": "0.0.0",
 	"dependencies": {
-		"requirejs": "2.1.10",
 		"jquery": "1.11.0"
 	}
 }

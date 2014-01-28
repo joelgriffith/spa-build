@@ -85,13 +85,16 @@ module.exports = function(grunt) {
         uglify: {
             dist: {
                 files: {
-                    'build/dist/js/index.js': ['build/dev/js/index.js'],
-                    'build/dist/js/lib/requirejs/require.min.js': [base + '/js/lib/requirejs/require.js']
+                    'build/dist/js/index.js': ['build/dev/js/index.js']
                 }
-            },
-            dev: {
+            }
+        },
+
+        // CSS Minification
+        cssmin: {
+            dist: {
                 files: {
-                    'build/dev/js/lib/requirejs/require.min.js': [base + '/js/lib/requirejs/require.js']
+                    'build/dist/css/index.css': ['build/dist/css/index.css']
                 }
             }
         },
@@ -117,7 +120,6 @@ module.exports = function(grunt) {
 
         // Watch Settings
         watch: {
-            // Live reload
             reload: {
                 options: {
                     livereload: '<%= connect.options.livereload %>'
@@ -135,6 +137,6 @@ module.exports = function(grunt) {
     
     // Command line tasks
     grunt.registerTask('default', ['build']);
-    grunt.registerTask('build', ['jshint', 'jsonlint', 'sass', 'requirejs', 'processhtml', 'uglify']);
+    grunt.registerTask('build', ['jshint', 'jsonlint', 'requirejs', 'processhtml', 'uglify', 'sass', 'cssmin']);
     grunt.registerTask('serve', ['build', 'connect:livereload', 'watch']);
 };
