@@ -20,18 +20,9 @@ gulp.task("build-dev", ["webpack:build-dev"], function() {
 // Production build
 gulp.task("build", ["webpack:build"]);
 
-gulp.task("webpack:build", function(callback) {
+gulp.task("webpack:build", function() {
 	// modify some webpack config options
 	var myConfig = Object.create(webpackConfig);
-	myConfig.plugins = myConfig.plugins.concat(
-		new webpack.DefinePlugin({
-			"process.env": {
-				"NODE_ENV": JSON.stringify("production")
-			}
-		}),
-		new webpack.optimize.DedupePlugin(),
-		new webpack.optimize.UglifyJsPlugin()
-	);
 
 	// run webpack
 	webpack(myConfig, function(err, stats) {
@@ -39,7 +30,6 @@ gulp.task("webpack:build", function(callback) {
 		gutil.log("[webpack:build]", stats.toString({
 			colors: true
 		}));
-		callback();
 	});
 });
 
@@ -51,14 +41,13 @@ myDevConfig.debug = true;
 // create a single instance of the compiler to allow caching
 var devCompiler = webpack(myDevConfig);
 
-gulp.task("webpack:build-dev", function(callback) {
+gulp.task("webpack:build-dev", function() {
 	// run webpack
 	devCompiler.run(function(err, stats) {
 		if(err) throw new gutil.PluginError("webpack:build-dev", err);
 		gutil.log("[webpack:build-dev]", stats.toString({
 			colors: true
 		}));
-		callback();
 	});
 });
 
