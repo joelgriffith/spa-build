@@ -7,7 +7,6 @@
     "es3": true,
     "freeze": true,
     "immed": true,
-    "jquery": true,
     "maxdepth": 2,
     "newcap": true,
     "noarg": true,
@@ -21,6 +20,8 @@
         "backbone": false,
         "pkg": false,
         "require": false,
-        "define": false
+        "define": false,
+        "$": false,
+        "jquery": false
     }
 }

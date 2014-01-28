@@ -1,14 +1,26 @@
 {
-  "name": "App",
-  "version": "0.0.0",
+  "name": "SinglePageApplication",
+  "version": "0.0.1",
   "dependencies": {
-    "jquery": "~2.1.0"
   },
   "devDependencies": {
     "gulp": "~3.5.0",
     "gulp-util": "~2.2.13",
     "webpack": "~1.0.0",
-    "webpack-dev-server": "~1.2.1"
+    "gulp-livereload": "~0.2.0",
+    "gulp-concat": "~2.1.7",
+    "gulp-rename": "~0.2.2",
+    "gulp-ruby-sass": "~0.2.0",
+    "tiny-lr": "0.0.5",
+    "gulp-minify-css": "~0.2.0",
+    "gulp-clean": "~0.2.4",
+    "gulp-uglify": "~0.2.0",
+    "gulp-notify": "~0.3.5-0",
+    "gulp-autoprefixer": "0.0.5",
+    "gulp-jshint": "~1.3.4",
+    "gulp-imagemin": "~0.1.4",
+    "gulp-cache": "~0.1.1",
+    "gulp-connect": "~0.1.3"
   },
   "scripts": {
     "install": "gulp"

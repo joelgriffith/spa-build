@@ -3,8 +3,9 @@
 
 # App stuff
 node_modules/
+bower_modules/
 npm-debug.log
 .sass-cache
 
 # Builds
-dist/
+build/

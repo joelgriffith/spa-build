@@ -2,12 +2,12 @@ var path = require("path");
 var webpack = require("webpack");
 module.exports = {
 	cache: true,
-	entry: "./app/js/index.js",
+	entry: "./src/js/index.js",
 	output: {
-		path: path.join(__dirname, "dist"),
-		publicPath: "js/",
-		filename: "build.js",
-		chunkFilename: "[chunkhash].js"
+		filename: "index.js",
+	},
+	resolve: {
+		modulesDirectories: ['node_modules', 'bower_components'],
 	},
 	plugins: [
 		new webpack.ProvidePlugin({
