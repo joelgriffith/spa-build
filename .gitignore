@@ -3,8 +3,7 @@
 
 # App stuff
 node_modules/
-app/js/lib/
-.npm-debug.log
+npm-debug.log
 .sass-cache
 
 # Builds
