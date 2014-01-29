@@ -68,6 +68,12 @@ var EXPRESS_PORT = 8080,
 gulp.task('default', ['clean'], function() {
     gulp.start('hint', 'webpack:dev', 'webpack:dist', 'styles:dev', 'styles:dist', 'images:dev', 'images:dist', 'html:dev', 'html:dist');
 });
+gulp.task('build:dev', ['clean'], function() {
+    gulp.start('hint', 'webpack:dev', 'styles:dev', 'images:dev', 'html:dev');
+});
+gulp.task('build:dist', ['clean'], function() {
+    gulp.start('hint', 'webpack:dist', 'styles:dist', 'images:dist', 'html:dist');
+});
 
 //////////////////////////////////////
 // JavaScript Tasks
