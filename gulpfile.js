@@ -95,8 +95,8 @@ gulp.task('webpack:dist', function() {
 		new webpack.optimize.UglifyJsPlugin()
 	);
 	webpack(myConfig, function(err, stats) {
-		if(err) throw new gutil.PluginError('webpack:build', err);
-		gutil.log('[webpack:build-dist]', stats.toString({
+		if(err) throw new gutil.PluginError('webpack:dist', err);
+		gutil.log('[webpack:dist]', stats.toString({
 			colors: true
 		}));
 	});
@@ -115,8 +115,8 @@ gulp.task('webpack:dev', function() {
 		})
 	);
 	webpack(myConfig, function(err, stats) {
-		if(err) throw new gutil.PluginError('webpack:build', err);
-		gutil.log('[webpack:build-dev]', stats.toString({
+		if(err) throw new gutil.PluginError('webpack:dev', err);
+		gutil.log('[webpack:dev]', stats.toString({
 			colors: true
 		}));
 		return gulp.src(dev).pipe(livereload(server));
@@ -154,12 +154,12 @@ gulp.task('styles:dev', function() {
 gulp.task('images:dist', function() {
   return gulp.src(assets + '/**/*')
     .pipe(imagemin({ optimizationLevel: IMG_COMPRESSION, progressive: true, interlaced: true }))
-    .pipe(gulp.dest(dist + '/assets/img'));
+    .pipe(gulp.dest(dist + '/assets'));
 });
 gulp.task('images:dev', function() {
   return gulp.src(assets + '/**/*')
     .pipe(imagemin({ optimizationLevel: IMG_COMPRESSION, progressive: true, interlaced: true }))
-    .pipe(gulp.dest(dev + '/assets/img'))
+    .pipe(gulp.dest(dev + '/assets'))
     .pipe(livereload(server));
 });
 
