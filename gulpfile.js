@@ -46,9 +46,7 @@ var webpackConfig = {
 	},
 	plugins: [
 		new webpack.ProvidePlugin({
-			// Automtically detect jQuery and $ as free var in modules
-			// and inject the jquery library
-			// This is required by many jquery plugins
+			// Common Dependency Injection
 			jQuery: "jquery",
 			$: "jquery"
 		})
@@ -61,7 +59,9 @@ var webpackConfig = {
 var EXPRESS_PORT = 8080,
 	EXPRESS_ROOT = dev,
 	LIVERELOAD_PORT = 35729,
-	IMG_COMPRESSION = 3;
+	IMG_COMPRESSION = 3,
+	SASS_SOURCE_MAPS = false,
+	SASS_COMPASS = false;
 
 //////////////////////////////////////
 // Task Mapping
@@ -142,7 +142,7 @@ gulp.task('styles:dist', function() {
 });
 gulp.task('styles:dev', function() {
   return gulp.src(scssIndex)
-    .pipe(sass({ style: 'expanded' }))
+    .pipe(sass({ style: 'expanded', sourcemap: SASS_SOURCE_MAPS, compass: SASS_COMPASS }))
     .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
     .pipe(gulp.dest(dev + '/css'))
     .pipe(livereload(server));
