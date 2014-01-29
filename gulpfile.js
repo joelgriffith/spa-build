@@ -56,11 +56,12 @@ var webpackConfig = {
 };
 
 //////////////////////////////////////
-// Ports and LiveReload Information
+// Ports and Config Options
 //////////////////////////////////////
 var EXPRESS_PORT = 8080,
 	EXPRESS_ROOT = dev,
-	LIVERELOAD_PORT = 35729;
+	LIVERELOAD_PORT = 35729,
+	IMG_COMPRESSION = 3;
 
 //////////////////////////////////////
 // Task Mapping
@@ -152,12 +153,12 @@ gulp.task('styles:dev', function() {
 //////////////////////////////////////
 gulp.task('images:dist', function() {
   return gulp.src(assets + '/**/*')
-    .pipe(imagemin({ optimizationLevel: 3, progressive: true, interlaced: true }))
+    .pipe(imagemin({ optimizationLevel: IMG_COMPRESSION, progressive: true, interlaced: true }))
     .pipe(gulp.dest(dist + '/assets/img'));
 });
 gulp.task('images:dev', function() {
   return gulp.src(assets + '/**/*')
-    .pipe(imagemin({ optimizationLevel: 3, progressive: true, interlaced: true }))
+    .pipe(imagemin({ optimizationLevel: IMG_COMPRESSION, progressive: true, interlaced: true }))
     .pipe(gulp.dest(dev + '/assets/img'))
     .pipe(livereload(server));
 });
