@@ -1,23 +1,18 @@
 //////////////////////////////////////
 // Build Dependencies
 //////////////////////////////////////
-var gulp = require('gulp');
+var gulp = require('gulp'),
     sass = require('gulp-ruby-sass'),
     autoprefixer = require('gulp-autoprefixer'),
     minifycss = require('gulp-minify-css'),
     jshint = require('gulp-jshint'),
-    uglify = require('gulp-uglify'),
     imagemin = require('gulp-imagemin'),
-    rename = require('gulp-rename'),
     clean = require('gulp-clean'),
-    concat = require('gulp-concat'),
-    cache = require('gulp-cache'),
     livereload = require('gulp-livereload'),
     lr = require('tiny-lr'),
     server = lr(),
     gutil = require('gulp-util'),
-	webpack = require('webpack'),
-	connect = require('gulp-connect');
+	webpack = require('webpack');
 
 //////////////////////////////////////
 // Location Abstractions
@@ -29,8 +24,7 @@ var base = './src',
 	scss = base + '/scss',
 	assets = base + '/assets',
 	scssIndex = scss + '/index.scss',
-	jsIndex = js + '/index.js',
-	htmlindex = base + '/index.html';
+	jsIndex = js + '/index.js';
 
 //////////////////////////////////////
 // Webpack Config (JS Compiling/Modules)
@@ -39,18 +33,12 @@ var webpackConfig = {
 	cache: true,
 	entry: jsIndex,
 	output: {
-		filename: "index.js",
+		filename: "index.js"
 	},
 	resolve: {
-		modulesDirectories: ['node_modules', 'bower_components'],
+		modulesDirectories: ['node_modules', 'bower_components']
 	},
-	plugins: [
-		new webpack.ProvidePlugin({
-			// Common Dependency Injection
-			jQuery: "jquery",
-			$: "jquery"
-		})
-	]
+	plugins: []
 };
 
 //////////////////////////////////////
@@ -173,7 +161,7 @@ gulp.task('html:dist', function() {
 gulp.task('html:dev', function() {
 	return gulp.src(base + '/*.html')
 		.pipe(gulp.dest(dev))
-	    .pipe(livereload(server));
+		.pipe(livereload(server));
 });
 
 //////////////////////////////////////
@@ -187,7 +175,7 @@ gulp.task('clean', function() {
 //////////////////////////////////////
 // Connection and Server Tasks
 //////////////////////////////////////
-gulp.task('connect', function() { 
+gulp.task('connect', function() {
 	var express = require('express');
 	var app = express();
 	app.use(require('connect-livereload')());
@@ -206,8 +194,8 @@ gulp.task('watch', function() {
 	// Start LiveReload
 	server.listen(LIVERELOAD_PORT, function (err) {
 		if (err) {
-			return console.log(err)
-		};
+			return console.log(err);
+		}
 
 		// Watch .scss files
 		gulp.watch(base + '/scss/*.scss', function(event) {
