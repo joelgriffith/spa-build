@@ -179,7 +179,7 @@ gulp.task('connect', function() {
 	var express = require('express');
 	var app = express();
 	app.use(require('connect-livereload')());
-	app.use(express.static(EXPRESS_ROOT));
+	app.use(express['static'](EXPRESS_ROOT));
 	app.listen(EXPRESS_PORT);
 });
 
