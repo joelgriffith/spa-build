@@ -24,6 +24,6 @@
     "express": "~3.4.8"
   },
   "scripts": {
-    "install": "gulp"
+    "install": "bower install && gulp"
   }
 }
