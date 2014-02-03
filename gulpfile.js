@@ -53,7 +53,7 @@ var gulp = require('gulp'),
 	scssIndex = scss + '/index.scss',
 
 	// Package title for your comment banners in JS and CSS
-	title = info.title,
+	title = info.name,
 
 	// Author title for our comment banners in JS and CSS
 	author = info.author,
@@ -82,7 +82,7 @@ var webpackConfig = {
 		modulesDirectories: ['node_modules', 'bower_components']
 	},
 	plugins: [
-		new webpack.BannerPlugin(title + '\n' + author + '\n' + version + build)
+		new webpack.BannerPlugin(title + '\n' + author + '\n' + version + ':' + build)
 	]
 };
 
