@@ -1,5 +1,9 @@
 //////////////////////////////////////
 // Build Dependencies
+//
+// These are dependencies for the build
+// process, and you're free to remove
+// dependencies you're not using.
 //////////////////////////////////////
 var gulp = require('gulp'),
     sass = require('gulp-ruby-sass'),
@@ -12,23 +16,62 @@ var gulp = require('gulp'),
     lr = require('tiny-lr'),
     server = lr(),
     gutil = require('gulp-util'),
+    info = require('./package.json'),
 	webpack = require('webpack');
 
 //////////////////////////////////////
 // Location Abstractions
+//
+// These are abstractions for your 
+// project. Things such as build 
+// directories and banner comments
+// are retrieved from these variables.
 //////////////////////////////////////
-var base = './src',
-	dev = './build/dev',
-	dist = './build/dist',
-	js = base + '/js',
-	scss = base + '/scss',
-	assets = base + '/assets',
-	scssIndex = scss + '/index.scss',
-	jsIndex = js + '/index.js';
 
-//////////////////////////////////////
+	// Source Code Directory
+	var base = './src',
+
+	// Dev build location to output
+	dev = './build/dev',
+
+	// Dist build location to output
+	dist = './build/dist',
+	
+	// JS directory (for watch and hinting)
+	js = base + '/js',
+
+	// SCSS directory (for watching)
+	scss = base + '/scss',
+
+	// Static assets directory (copying and optimizing)
+	assets = base + '/assets',
+
+	// Entry point for your JS app (builds look only at this)
+	jsIndex = js + '/index.js',
+
+	// Entry point for your SCSS (builds look only at this)
+	scssIndex = scss + '/index.scss',
+
+	// Package title for your comment banners in JS and CSS
+	title = info.title,
+
+	// Author title for our comment banners in JS and CSS
+	author = info.author,
+
+	// Version information for your comment banners in JS and CSS
+	version = info.version,
+
+	// Build# for your comment banners in JS and CSS
+	build = Date.now();
+
+//////////////////////////////////////////////
 // Webpack Config (JS Compiling/Modules)
-//////////////////////////////////////
+//
+// Responsbile for compiling JS. Uses
+// the Webpack build system for compilation,
+// which can build from AMD or CommonJS
+// modules.
+//////////////////////////////////////////////
 var webpackConfig = {
 	cache: true,
 	entry: jsIndex,
@@ -38,21 +81,41 @@ var webpackConfig = {
 	resolve: {
 		modulesDirectories: ['node_modules', 'bower_components']
 	},
-	plugins: []
+	plugins: [
+		new webpack.BannerPlugin(title + '\n' + author + '\n' + version + build)
+	]
 };
 
 //////////////////////////////////////
 // Ports and Config Options
+//
+// These are GLOBAL variables used
+// mostly for the dev server and
+// LiveReload.
 //////////////////////////////////////
-var EXPRESS_PORT = 8080,
+
+	// The port you wish to serve the dev build
+	var EXPRESS_PORT = 8080,
+
+	// The root directory for express to look at
 	EXPRESS_ROOT = dev,
+
+	// The live reload port (35729 is default)
 	LIVERELOAD_PORT = 35729,
+
+	// IMG compression "force"
 	IMG_COMPRESSION = 3,
+
+	// Sourcemaps for JS and CSS (neither are supported yet)
 	SASS_SOURCE_MAPS = false,
 	SASS_COMPASS = false;
 
 //////////////////////////////////////
 // Task Mapping
+//
+// Gulp task abstractions happen here.
+// Feel free to move things around to 
+// suite your needs.
 //////////////////////////////////////
 gulp.task('default', ['clean'], function() {
     gulp.start('hint', 'webpack:dev', 'webpack:dist', 'styles:dev', 'styles:dist', 'images:dev', 'images:dist', 'html:dev', 'html:dist');
@@ -66,6 +129,10 @@ gulp.task('build:dist', ['clean'], function() {
 
 //////////////////////////////////////
 // JavaScript Tasks
+//
+// All JavaScript tasks here. This
+// includes building Dist and Dev
+// JS and hinting as well
 //////////////////////////////////////
 
 // JS packaging for distribution
@@ -120,6 +187,9 @@ gulp.task('hint', function() {
 
 //////////////////////////////////////
 // Stylesheet Tasks
+//
+// All SCSS->CSS tasks are here for
+// DEV and DIST
 //////////////////////////////////////
 gulp.task('styles:dist', function() {
   return gulp.src(scssIndex)
@@ -138,6 +208,8 @@ gulp.task('styles:dev', function() {
 
 //////////////////////////////////////
 // Image Tasks
+//
+// Image compression tasks
 //////////////////////////////////////
 gulp.task('images:dist', function() {
   return gulp.src(assets + '/**/*')
@@ -153,6 +225,11 @@ gulp.task('images:dev', function() {
 
 //////////////////////////////////////
 // HTML Tasks
+//
+// HTML (index.html) copying tasks.
+// NOTE: that both DEV and DIST use
+// the same index file, so be sure
+// your links look in the right place!
 //////////////////////////////////////
 gulp.task('html:dist', function() {
 	return gulp.src(base + '/*.html')
@@ -166,6 +243,10 @@ gulp.task('html:dev', function() {
 
 //////////////////////////////////////
 // Cleanup Tasks
+//
+// Clean will just delete all files in 
+// /dev and /dist to ensure old
+// files are removed.
 //////////////////////////////////////
 gulp.task('clean', function() {
   return gulp.src([dist, dev], {read: false})
@@ -174,6 +255,11 @@ gulp.task('clean', function() {
 
 //////////////////////////////////////
 // Connection and Server Tasks
+//
+// Builds out the express server and
+// LiveReload options. LR uses express
+// middleware so there is no need for
+// any browser plugins
 //////////////////////////////////////
 gulp.task('connect', function() {
 	var express = require('express');
@@ -185,6 +271,11 @@ gulp.task('connect', function() {
 
 //////////////////////////////////////
 // Watching Tasks
+//
+// Gulp watch is built here. Looks
+// at all .js and .scss files as well
+// as images. New files will require a
+// restart of the `gulp watch` command.
 //////////////////////////////////////
 gulp.task('watch', function() {
 	
