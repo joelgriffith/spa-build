@@ -18,7 +18,7 @@ You'll need the following installed to make this whole build operational:
 
 ### Required:
 - Ruby, Ruby Gems, and the SASS Gem
-- Node.js and NPM installed
+- Node.js, NPM, and bower* installed
 
 ### Optional: 
 - JSHint installed
@@ -39,3 +39,19 @@ If not, here is the play-by-play:
 The build process utilizies numerous packages and optimizations from the NPM/Gulp community. Many thanks to all of those packages! 
 If you'd like to make changes, feel free to see the mostly annoted build code in `gulpfile.js` which includes all the information you'll need. Make changes as you see fit.
 To that end, most of the build operations look for a manifest of some sort, this is either in the`src/js/index.js` or `src/scss/index.scss`. Include whatever modules/code in there and they'll be built out into one file.
+
+## *Optional Packages
+Due to the fractured nature of the front-end packages (NPM vs Bower), this build assumes you'll use BOTH by default. Since Node/NPM is required, it's assumed you'll likely NOT need Bower if you're going the browserify/NPM route. To that end, you can remove the Bower dependency by:
+
+ - Deleting `.bowerrc` and `bower.json` files.
+ - Removing the `bower install &&` text form the this snippet in package.json:
+
+ 	`"scripts": { 
+ 		"install": "bower install && gulp" 
+ 	}`
+	
+	Will now be:
+
+ 	`"scripts": { 
+ 		"install": "gulp" 
+ 	}`
