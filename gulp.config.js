@@ -24,8 +24,7 @@ module.exports = {
 				prod: './build/prod/css/'
 			}
 		},
-		sourcemaps: false,
-		compass: false
+		sourcemaps: false
 	},
 	html: {
 		paths: {
@@ -38,7 +37,7 @@ module.exports = {
 	},
 	images: {
 		paths: {
-			all: ['./src/images/**/*.png', './src/images/**/*.jpg', './src/images/**/*.jpeg'],
+			all: ['./src/images/*', './src/images/**/*.jpg', './src/images/**/*.jpeg', './src/images/**/*.gif'],
 			output: {
 				dev: './build/dev/images/',
 				prod: './build/prod/images/'
@@ -51,13 +50,16 @@ module.exports = {
 		livereload: 35729,
 		expressRoot: './build/dev'
 	},
-	webpackConfig: {
+	webpack: {
 		cache: true,
+		output: {
+			filename: 'index.js'
+		},
 		resolve: {
 			modulesDirectories: ['node_modules', 'bower_components']
 		}
 	},
-	express: {
+	connect: {
 		port: 8080,
 		root: './build/dev'
 	},
