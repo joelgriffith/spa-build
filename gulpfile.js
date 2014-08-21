@@ -13,10 +13,9 @@ var gulpConfig = require('./gulp.config');
 // Tasks
 gulp.task('default', ['hint', 'scripts', 'styles', 'images', 'html']);
 
-// JS packaging for distribution
+// JS packaging
 gulp.task('scripts', function() {
 	return gulp.src(gulpConfig.scripts.paths.entry)
-		// .pipe(changed(gulpConfig.scripts.paths.output.dev))
 		.pipe(webpack(gulpConfig.webpack))
 		.pipe(gulp.dest(gulpConfig.scripts.paths.output.dev))
 		.pipe(connect.reload())
