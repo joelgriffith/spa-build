@@ -4,7 +4,7 @@
     "curly": false,
     "devel": true,
     "eqeqeq": true,
-    "es3": true,
+    "esnext": true,
     "freeze": true,
     "immed": true,
     "maxdepth": 2,

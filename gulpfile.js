@@ -1,6 +1,5 @@
 var gulp = require('gulp');
 var connect = require('gulp-connect');
-var changed = require('gulp-changed');
 var sass = require('gulp-sass');
 var uglify = require('gulp-uglify');
 var autoprefixer = require('gulp-autoprefixer');
@@ -13,13 +12,11 @@ var gulpConfig = require('./gulp.config');
 
 // Tasks
 gulp.task('default', ['hint', 'scripts', 'styles', 'images', 'html']);
-gulp.task('build', ['hint', 'scripts', 'styles', 'images', 'html']);
-gulp.task('dev', ['connect', 'watch', 'hint', 'scripts', 'styles', 'images', 'html']);
 
 // JS packaging for distribution
 gulp.task('scripts', function() {
 	return gulp.src(gulpConfig.scripts.paths.entry)
-		.pipe(changed(gulpConfig.scripts.paths.output.dev))
+		// .pipe(changed(gulpConfig.scripts.paths.output.dev))
 		.pipe(webpack(gulpConfig.webpack))
 		.pipe(gulp.dest(gulpConfig.scripts.paths.output.dev))
 		.pipe(connect.reload())
@@ -35,7 +32,6 @@ gulp.task('hint', function() {
 
 gulp.task('styles', function() {
 	return gulp.src(gulpConfig.styles.paths.entry)
-		.pipe(changed(gulpConfig.styles.paths.output.dev))
 		.pipe(sass())
 		.pipe(autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
 		.pipe(gulp.dest(gulpConfig.styles.paths.output.dev))
@@ -47,7 +43,6 @@ gulp.task('styles', function() {
 
 gulp.task('images', function() {
 	return gulp.src(gulpConfig.images.paths.all)
-		.pipe(changed(gulpConfig.images.paths.output.dev))
 		.pipe(gulp.dest(gulpConfig.images.paths.output.dev))
 		.pipe(connect.reload())
 		.pipe(imagemin({
@@ -60,11 +55,9 @@ gulp.task('images', function() {
 
 gulp.task('html', function() {
 	return gulp.src(gulpConfig.html.paths.entry)
-		.pipe(changed(gulpConfig.html.paths.output.dev))
 		.pipe(gulp.dest(gulpConfig.html.paths.output.dev))
 		.pipe(connect.reload())
-		.pipe(gulp.dest(gulpConfig.html.paths.output.prod))
-		;
+		.pipe(gulp.dest(gulpConfig.html.paths.output.prod));
 });
 
 gulp.task('clean', function() {
@@ -74,14 +67,11 @@ gulp.task('clean', function() {
 		.pipe(clean());
 });
 
-gulp.task('watch', function() {
+gulp.task('watch', ['default'], function() {
 	gulp.watch(gulpConfig.scripts.paths.all, ['scripts']);
 	gulp.watch(gulpConfig.styles.paths.all, ['styles']);
 	gulp.watch(gulpConfig.html.paths.entry, ['html']);
 	gulp.watch(gulpConfig.images.paths.all, ['images']);
-});
-
-gulp.task('connect', function() {
 	connect.server({
 		port: gulpConfig.connect.port,
 		root: './build/dev',

@@ -57,6 +57,15 @@ module.exports = {
 		},
 		resolve: {
 			modulesDirectories: ['node_modules', 'bower_components']
+		},
+		resolveLoader: {
+			modulesDirectories: ['node_modules']
+		},
+		module: {
+			loaders: [{
+				test: /\.js$/,
+				loader: 'es6-loader'
+			}]
 		}
 	},
 	connect: {
