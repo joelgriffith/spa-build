@@ -1,4 +1,5 @@
 var info = require('./package.json');
+var webpack = require('webpack');
 
 module.exports = {
 	title: info.title,
@@ -66,7 +67,12 @@ module.exports = {
 				test: /\.js$/,
 				loader: 'es6-loader'
 			}]
-		}
+		},
+		plugins: [
+			new webpack.ResolverPlugin(
+				new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin("bower.json", ["main"])
+			)
+		]
 	},
 	connect: {
 		port: 8080,
